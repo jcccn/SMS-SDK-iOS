@@ -7,7 +7,7 @@
 //
 
 #import "YJViewController.h"
-#import <SMS_SDK/SMS_SDK.h>
+#import "SMS_SDK/SMS_SDK.h"
 #import "SMS_HYZBadgeView.h"
 #import "RegViewController.h"
 #import "SectionsViewControllerFriends.h"
@@ -46,7 +46,7 @@ static UIAlertView* _alert1=nil;
     
     [_friendsController setMyBlock:_friendsBlock];
     
-    [SMS_MBProgressHUD showMessag:@"正在加载中..." toView:self.view];
+    [SMS_MBProgressHUD showMessag:NSLocalizedString(@"loading", nil) toView:self.view];
     
     [SMS_SDK getAppContactFriends:1 result:^(enum SMS_ResponseState state, NSArray *array) {
         if (1==state)
@@ -72,8 +72,8 @@ static UIAlertView* _alert1=nil;
     
     if(ABAddressBookGetAuthorizationStatus()!=kABAuthorizationStatusAuthorized&&_alert1==nil)
     {
-        NSString* str=[NSString stringWithFormat:@"您未授权访问联系人，请在【设置>隐私>通讯录】中授权访问，就可以看到通讯录好友了哦"];
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        NSString* str=[NSString stringWithFormat:NSLocalizedString(@"authorizedcontact", nil)];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
         _alert1=alert;
         [alert show];
     }
@@ -106,7 +106,7 @@ static UIAlertView* _alert1=nil;
     
     regBtn.frame=CGRectMake(20, 111+statusBarHeight, 280, 40);
     
-    [regBtn setTitle:@"注册或绑定手机演示" forState:UIControlStateNormal];
+    [regBtn setTitle:NSLocalizedString(@"registeruser", nil) forState:UIControlStateNormal];
     
     [regBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     
@@ -116,7 +116,7 @@ static UIAlertView* _alert1=nil;
     
     friendsBtn.frame=CGRectMake(20, 170+statusBarHeight, 280, 40);
 
-    [friendsBtn setTitle:@"通讯录好友" forState:UIControlStateNormal];
+    [friendsBtn setTitle:NSLocalizedString(@"addressbookfriends", nil) forState:UIControlStateNormal];
     
     [friendsBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     

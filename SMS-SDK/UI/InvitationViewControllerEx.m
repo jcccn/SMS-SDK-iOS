@@ -7,12 +7,11 @@
 //
 
 #import "InvitationViewControllerEx.h"
-#import <SMS_SDK/SMS_SDK.h>
+#import "SMS_SDK/SMS_SDK.h"
 
 @interface InvitationViewControllerEx ()
 {
     NSString* _name;
-    SMS_SDK* _sdk;
     NSString* _phone;
     NSString* _phone2;
 }
@@ -45,13 +44,13 @@
     //发送短信
     NSLog(@"发送短信");
     if ([_phone2 length]>0) {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"选择要发送邀请的号码" delegate:self cancelButtonTitle:_phone otherButtonTitles:_phone2, nil];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"choosephonenumber", nil) delegate:self cancelButtonTitle:_phone otherButtonTitles:_phone2, nil];
         [alert show];
     }
     else
     {
         //[_sdk sendSMS:_phone?_phone:@"18927512076"];
-        [SMS_SDK sendSMS:_phone?_phone:@"18927512076" AndMessage:@"快加入SMS_SDK吧,网址为http://www.sharesdk.cn"];
+        [SMS_SDK sendSMS:_phone?_phone:@"18927512076" AndMessage:NSLocalizedString(@"smsmessage", nil)];
     }
 }
 
@@ -60,12 +59,12 @@
     if (1==buttonIndex)
     {
         //[_sdk sendSMS:_phone2?_phone2:@"18927512076"];
-        [SMS_SDK sendSMS:_phone?_phone:@"18927512076" AndMessage:@"快加入SMS_SDK吧,网址为http://www.sharesdk.cn"];
+        [SMS_SDK sendSMS:_phone?_phone:@"18927512076" AndMessage:NSLocalizedString(@"smsmessage", nil)];
     }
     if (0==buttonIndex)
     {
         //[_sdk sendSMS:_phone?_phone:@"18927512076"];
-        [SMS_SDK sendSMS:_phone?_phone:@"18927512076" AndMessage:@"快加入SMS_SDK吧,网址为http://www.sharesdk.cn"];
+        [SMS_SDK sendSMS:_phone?_phone:@"18927512076" AndMessage:NSLocalizedString(@"smsmessage", nil)];
     }
 }
 
@@ -93,7 +92,7 @@
     
     cell.imageView.image=[UIImage imageNamed:@"2.png"];
     
-    cell.detailTextLabel.text=[NSString stringWithFormat:@"手机号:%@ %@",_phone?_phone:@"18927512076",_phone2?_phone2:@""];
+    cell.detailTextLabel.text=[NSString stringWithFormat:@"%@:%@ %@",NSLocalizedString(@"phonecode", nil),_phone?_phone:@"18927512076",_phone2?_phone2:@""];
     
     //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
@@ -137,7 +136,7 @@
     UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
     
     //创建一个左边按钮
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil)
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:self
                                                                   action:@selector(clickLeftButton)];
@@ -158,7 +157,7 @@
     [self.view addSubview:tableView];
     
     UIButton* btn=[UIButton buttonWithType:UIButtonTypeSystem];
-    [btn setTitle:@"发送邀请" forState:UIControlStateNormal];
+    [btn setTitle:NSLocalizedString(@"sendinvite", nil) forState:UIControlStateNormal];
     NSString *icon = [NSString stringWithFormat:@"smssdk.bundle/button4.png"];
     [btn setBackgroundImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
     btn.frame=CGRectMake(11, 198+statusBarHeight, 299, 42);
@@ -170,7 +169,7 @@
     
     UILabel* label=[[UILabel alloc] init];
     label.frame=CGRectMake(0, 146+statusBarHeight, 320, 27);
-    label.text=[NSString stringWithFormat:@"%@还未加入",_name];
+    label.text=[NSString stringWithFormat:@"%@%@",_name,NSLocalizedString(@"notjoined", nil)];
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"Helvetica" size:13];
     [self.view addSubview:label];

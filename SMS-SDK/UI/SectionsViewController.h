@@ -1,7 +1,7 @@
 
 
 #import <UIKit/UIKit.h>
-#import <SMS_SDK/CountryAndAreaCode.h>
+#import "SMS_SDK/CountryAndAreaCode.h"
 
 @protocol SecondViewControllerDelegate;
 

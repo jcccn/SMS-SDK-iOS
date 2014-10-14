@@ -2,8 +2,7 @@
 
 #import "SectionsViewController.h"
 #import "NSDictionary-DeepMutableCopy.h"
-#include <SMS_SDK/SMS_SRUtils.h>
-#import <SMS_SDK/SMS_SDK.h>
+#import "SMS_SDK/SMS_SDK.h"
 
 @interface SectionsViewController ()
 {
@@ -87,13 +86,13 @@
     UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
     
     //创建一个左边按钮
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil)
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:self
                                                                   action:@selector(clickLeftButton)];
     
     //设置导航栏内容
-    [navigationItem setTitle:@"选择国家或地区"];
+    [navigationItem setTitle:NSLocalizedString(@"countrychoose", nil)];
     
     //把导航栏集合添加入导航栏中，设置动画关闭
     [navigationBar pushNavigationItem:navigationItem animated:NO];
@@ -281,7 +280,7 @@ sectionForSectionIndexTitle:(NSString *)title
     }
     
     if (!compareResult) {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"暂时不支持该地区" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"doesnotsupportarea", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
         [alert show];
         return;
     }

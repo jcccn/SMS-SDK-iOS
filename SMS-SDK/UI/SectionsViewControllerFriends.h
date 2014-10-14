@@ -1,7 +1,7 @@
 
 
 #import <UIKit/UIKit.h>
-#import <SMS_SDK/SMS_SDKResultHanderDef.h>
+#import "SMS_SDK/SMS_SDKResultHanderDef.h"
 
 @protocol CustomCellDelegate;
 

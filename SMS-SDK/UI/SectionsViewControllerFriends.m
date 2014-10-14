@@ -3,8 +3,8 @@
 #import "SectionsViewControllerFriends.h"
 #import "NSDictionary-DeepMutableCopy.h"
 #import "CustomCell.h"
-#import <SMS_SDK/SMS_SDK.h>
-#import <SMS_SDK/SMS_AddressBook.h>
+#import "SMS_SDK/SMS_SDK.h"
+#import "SMS_SDK/SMS_AddressBook.h"
 #import "InvitationViewControllerEx.h"
 #import "VerifyViewController.h"
 
@@ -13,7 +13,6 @@
     NSMutableArray* _testArray1;
     NSMutableArray* _testArray2;
     
-    SMS_SDK* _sdk;
     NSMutableArray* _addressBookData;
     NSMutableArray* _friendsData;
     NSMutableArray* _friendsData2;
@@ -78,12 +77,9 @@
         _window.hidden=YES;
     }];
     
-    NSUserDefaults* defaults=[NSUserDefaults standardUserDefaults];
     //修改消息条数为0
     [SMS_SDK setLatelyFriendsCount:0];
-    
-    [defaults setObject:@"0" forKey:@"latelycount"];
-    
+
     if (_friendsBlock) {
         _friendsBlock(1,0);
     }
@@ -128,7 +124,7 @@
     UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
     
     //创建一个左边按钮
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil)
                                                                        style:UIBarButtonItemStyleBordered
                                                                       target:self
                                                                       action:@selector(clickLeftButton)];
@@ -211,10 +207,10 @@
     _testArray2=[NSMutableArray array];
     
     if (_friendsData2.count>0) {
-        [dict setObject:_friendsData2 forKey:@"已加入的用户"];
+        [dict setObject:_friendsData2 forKey:NSLocalizedString(@"hasjoined", nil)];
     }
     if (_other.count>0) {
-         [dict setObject:_other forKey:@"待邀请的好友"];
+         [dict setObject:_other forKey:NSLocalizedString(@"toinvitefriends", nil)];
     }
     
     self.allNames = dict;
@@ -251,16 +247,16 @@
     
     NSString* newStr=btn.titleLabel.text;
     
-    if ([newStr isEqualToString:@"添加"])
+    if ([newStr isEqualToString:NSLocalizedString(@"addfriends", nil)])
     {
         NSLog(@"添加好友");
         NSLog(@"添加好友回调 用户自行处理");
         
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"添加好友" message:@"已经发送添加好友信息,请耐心等待好友回复" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"addfriendstitle", nil) message:NSLocalizedString(@"addfriendsmsg", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
         [alert show];
     }
     
-    if ([newStr isEqualToString:@"邀请"])
+    if ([newStr isEqualToString:NSLocalizedString(@"invitefriends", nil)])
     {
         NSLog(@"邀请好友");
         InvitationViewControllerEx* invit=[[InvitationViewControllerEx alloc] init];
@@ -313,15 +309,15 @@
     if ([newStr1 isEqualToString:@"@"]) {
         UIButton* btn=cell.btn;
         
-        [btn setTitle:@"添加" forState:UIControlStateNormal];
+        [btn setTitle:NSLocalizedString(@"addfriends", nil) forState:UIControlStateNormal];
         
-        cell.nameDesc=[NSString stringWithFormat:@"手机联系人:%@",cccc];
+        cell.nameDesc=[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"phonecontacts", nil),cccc];
     }
     
     if ([newStr1 isEqualToString:@"#"]) {
         UIButton* btn=cell.btn;
         
-        [btn setTitle:@"邀请" forState:UIControlStateNormal];
+        [btn setTitle:NSLocalizedString(@"invitefriends", nil) forState:UIControlStateNormal];
         
         cell.nameDesc=[NSString stringWithFormat:@"%@",cccc];
         cell.nameDescLabel.hidden=YES;

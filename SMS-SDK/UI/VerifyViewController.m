@@ -7,19 +7,16 @@
 //
 
 #import "VerifyViewController.h"
-#import <SMS_SDK/SMS_SDK.h>
+#import "SMS_SDK/SMS_SDK.h"
 #import "SMS_MBProgressHUD+Add.h"
-#import <SMS_SDK/SMS_UserInfo.h>
-#import <SMS_SDK/SMS_SRUtils.h>
-#import <SMS_SDK/SMS_AddressBook.h>
+#import "SMS_SDK/SMS_UserInfo.h"
+#import "SMS_SDK/SMS_AddressBook.h"
 #import <AddressBook/AddressBook.h>
 #import "YJViewController.h"
 
 
 @interface VerifyViewController ()
 {
-    //NSString* _str;
-    SMS_SDK* _sdk;
     NSString* _phone;
     NSString* _areaCode;
     
@@ -66,7 +63,7 @@ static NSMutableArray* _userData2;
 
 -(void)clickLeftButton
 {
-    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码短信可能略有延迟,确定返回并重新开始" delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"等待", nil];
+    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"codedelaymsg", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"back", nil) otherButtonTitles:NSLocalizedString(@"wait", nil), nil];
     _alert2=alert;
     [alert show];    
 }
@@ -95,7 +92,7 @@ static NSMutableArray* _userData2;
     
     if(self.verifyCodeField.text.length!=4)
     {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码格式错误,请重新填写" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"verifycodeformaterror", nil) delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
     }
     else
@@ -106,16 +103,16 @@ static NSMutableArray* _userData2;
         [SMS_SDK commitVerifyCode:self.verifyCodeField.text result:^(enum SMS_ResponseState state) {
             if (1==state) {
                 NSLog(@"block 验证成功");
-                NSString* str=[NSString stringWithFormat:@"验证码正确"];
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"验证成功" message:str delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"verifycoderightmsg", nil)];
+                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycoderighttitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
                 [alert show];
                 _alert3=alert;
             }
             else if(0==state)
             {
                 NSLog(@"block 验证失败");
-                NSString* str=[NSString stringWithFormat:@"验证码无效 请重新获取验证码"];
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"验证失败" message:str delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"verifycodeerrormsg", nil)];
+                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycodeerrortitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil)  otherButtonTitles:nil, nil];
                 [alert show];
             }
         }];
@@ -125,8 +122,8 @@ static NSMutableArray* _userData2;
 
 -(void)CannotGetSMS
 {
-    NSString* str=[NSString stringWithFormat:@"我们将重新发送验证码短信到这个号码:%@",_phone];
-    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"确认手机号码" message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    NSString* str=[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"cannotgetsmsmsg", nil) ,_phone];
+    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"surephonenumber", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"sure", nil), nil];
     _alert1=alert;
     [alert show];
 }
@@ -145,20 +142,20 @@ static NSMutableArray* _userData2;
                 else if(0==state)
                 {
                     NSLog(@"block 获取验证码失败");
-                    NSString* str=[NSString stringWithFormat:@"验证码发送失败 请稍后重试"];
-                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"发送失败" message:str delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codesenderrormsg", nil)];
+                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
                     [alert show];
                 }
                 else if (SMS_ResponseStateMaxVerifyCode==state)
                 {
-                    NSString* str=[NSString stringWithFormat:@"请求验证码超上限 请稍后重试"];
-                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"超过上限" message:str delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    NSString* str=[NSString stringWithFormat:NSLocalizedString(@"maxcodemsg", nil)];
+                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"maxcode", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
                     [alert show];
                 }
                 else if(SMS_ResponseStateGetVerifyCodeTooOften==state)
                 {
-                    NSString* str=[NSString stringWithFormat:@"客户端请求发送短信验证过于频繁"];
-                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codetoooftenmsg", nil)];
+                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
                     [alert show];
                 }
 
@@ -218,13 +215,13 @@ static NSMutableArray* _userData2;
     UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
     
     //创建一个左边按钮
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil)
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:self
                                                                   action:@selector(clickLeftButton)];
     
     //设置导航栏内容
-    [navigationItem setTitle:@"验证码"];
+    [navigationItem setTitle:NSLocalizedString(@"verifycode", nil)];
     
     //把导航栏集合添加入导航栏中，设置动画关闭
     [navigationBar pushNavigationItem:navigationItem animated:NO];
@@ -237,7 +234,7 @@ static NSMutableArray* _userData2;
     
     UILabel* label=[[UILabel alloc] init];
     label.frame=CGRectMake(20, 53+statusBarHeight, 280, 21);
-    label.text=[NSString stringWithFormat:@"我们已发送验证码到这个号码"];
+    label.text=[NSString stringWithFormat:NSLocalizedString(@"verifylabel", nil)];
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"Helvetica" size:17];
     [self.view addSubview:label];
@@ -252,7 +249,7 @@ static NSMutableArray* _userData2;
     _verifyCodeField.frame=CGRectMake(85, 111+statusBarHeight, 158, 46);
     _verifyCodeField.borderStyle=UITextBorderStyleBezel;
     _verifyCodeField.textAlignment=UITextAlignmentCenter;
-    _verifyCodeField.placeholder=@"验证码";
+    _verifyCodeField.placeholder=NSLocalizedString(@"verifycode", nil);
     _verifyCodeField.font=[UIFont fontWithName:@"Helvetica" size:27];
     _verifyCodeField.keyboardType=UIKeyboardTypePhonePad;
     _verifyCodeField.clearButtonMode=UITextFieldViewModeWhileEditing;
@@ -262,17 +259,17 @@ static NSMutableArray* _userData2;
     _timeLabel.frame=CGRectMake(64, 169+statusBarHeight, 200, 21);
     _timeLabel.textAlignment = UITextAlignmentCenter;
     _timeLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
-    _timeLabel.text=@"接受短信大约需要60秒";
+    _timeLabel.text=NSLocalizedString(@"timelabel", nil);
     [self.view addSubview:_timeLabel];
     
     _repeatSMSBtn=[UIButton buttonWithType:UIButtonTypeSystem];
     _repeatSMSBtn.frame=CGRectMake(96, 165+statusBarHeight, 137, 30);
-    [_repeatSMSBtn setTitle:@"收不到验证码？" forState:UIControlStateNormal];
+    [_repeatSMSBtn setTitle:NSLocalizedString(@"repeatsms", nil) forState:UIControlStateNormal];
     [_repeatSMSBtn addTarget:self action:@selector(CannotGetSMS) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_repeatSMSBtn];
     
     _submitBtn=[UIButton buttonWithType:UIButtonTypeSystem];
-    [_submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [_submitBtn setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];
     NSString *icon = [NSString stringWithFormat:@"smssdk.bundle/button4.png"];
     [_submitBtn setBackgroundImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
     _submitBtn.frame=CGRectMake(9, 209+statusBarHeight, 303, 42);
@@ -304,7 +301,7 @@ static NSMutableArray* _userData2;
     _timer1=timer;
     _timer2=timer2;
     
-    [SMS_MBProgressHUD showMessag:@"正在发送中..." toView:self.view];
+    [SMS_MBProgressHUD showMessag:NSLocalizedString(@"sendingin", nil) toView:self.view];
     
 }
 
@@ -316,7 +313,7 @@ static NSMutableArray* _userData2;
         return;
     }
     //NSLog(@"更新时间");
-    self.timeLabel.text=[NSString stringWithFormat:@"接受短信大约需要%i秒",60-count];
+    self.timeLabel.text=[NSString stringWithFormat:@"%@%i%@",NSLocalizedString(@"timelablemsg", nil),60-count,NSLocalizedString(@"second", nil)];
 }
 
 -(void)showRepeatButton{

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <SMS_SDK/SMS_UserInfo.h>
+#import "SMS_SDK/SMS_UserInfo.h"
 
 @interface VerifyViewController : UIViewController <UIAlertViewDelegate>
 
