@@ -237,12 +237,12 @@
 - (void)setNumber:(NSUInteger)inValue
 {
     if( inValue == 0 ) {
-        _value = [[NSString alloc]initWithFormat:@"%d",inValue];
+        //_value = [[NSString alloc]initWithFormat:@"%d",inValue];
         self.frame = CGRectZero;
         [self setNeedsLayout];
         return;
     }else {
-        [self setValue:[NSString stringWithFormat:@"%d", inValue]];
+        [self setValue:[NSString stringWithFormat:@"%zi", inValue]];
     }
 }
 
