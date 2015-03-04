@@ -16,22 +16,15 @@
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *nameDescLabel;
 @property (strong, nonatomic) UIButton *btn;
-
-
 @property (copy, nonatomic) UIImage *image;
+
 @property (copy, nonatomic) NSString *name;
-
-@property(copy,nonatomic) NSString* nameDesc;
-
+@property (copy,nonatomic) NSString* nameDesc;
 @property (nonatomic, assign) int index;
-@property(nonatomic,assign) int section;
-
-
-- (void)btnClick;
-
-// 代理一般用assign，因为一般情况下代理是控制器
+@property (nonatomic,assign) int section;
 @property (nonatomic, assign) id<CustomCellDelegate> delegate;
 
+- (void)btnClick;
 
 @end
 

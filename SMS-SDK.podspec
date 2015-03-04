@@ -1,14 +1,14 @@
 Pod::Spec.new do |s|
   s.name     = 'SMS-SDK'
-  s.version  = '1.0.5'
+  s.version  = '1.0.7'
   s.summary  = 'SMS-SDK is a SMS verifying kit.'
   s.homepage = 'https://github.com/jcccn/SMS-SDK-iOS'
   s.author   = { 'Chuncheng Jiang' => 'jccuestc@gmail.com' }
   s.license  = { :type => 'Copyright', :text => <<-LICENSE
-                   Copyright © 2012-2014 mob All Rights Reserved 掌淘网络 版权所有
+                   Copyright © 2012-2015 mob All Rights Reserved 掌淘网络 版权所有
                  LICENSE
                }
-  s.source   = { :git => 'https://github.com/jcccn/SMS-SDK-iOS.git', :tag => '1.0.5' }
+  s.source   = { :git => 'https://github.com/jcccn/SMS-SDK-iOS.git', :tag => '1.0.7' }
   s.platform     = :ios, '5.0'
   s.requires_arc = true
 
@@ -23,6 +23,7 @@ Pod::Spec.new do |s|
     cs.frameworks = 'UIKit', 'CoreGraphics', 'Foundation', 'MessageUI'
     cs.libraries  = 'icucore', 'z'
     cs.vendored_frameworks = 'SMS-SDK/SMS_SDK.framework'
+    cs.resources = 'SMS-SDK/zh-Hans.lproj/SMS_SDKLocalizable.strings'
   end
 
   s.subspec 'UI' do |uis|
@@ -30,9 +31,9 @@ Pod::Spec.new do |s|
     uis.dependency 'SMS-SDK/Core'
     uis.dependency 'SMS-SDK/UI/no-arc'
     uis.frameworks = 'UIKit', 'CoreGraphics', 'Foundation', 'AddressBookUI', 'AddressBook', 'MessageUI'
-    uis.source_files = "SMS-SDK/SMS_UILib/*.{h,m}", "SMS-SDK/UI/*.{h,m}", "Demo/*.{h,m}"
+    uis.source_files = "SMS-SDK/SMS_UILib/*.{h,m}", "SMS-SDK/UI/**/*.{h,m}", "Demo/*.{h,m}"
     uis.exclude_files = non_arc_files
-    uis.resources = 'SMS-SDK/UI/smssdk.bundle'
+    uis.resources = 'SMS-SDK/UI/smssdk.bundle', 'SMS-SDK/zh-Hans.lproj/Localizable.strings', 'SMS-SDK/zh-Hans.lproj/country.plist'
 
     uis.subspec 'no-arc' do |una|
       una.requires_arc = false

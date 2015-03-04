@@ -2,11 +2,12 @@
 //  SMS_SDKResultHanderDef.h
 //  SMS_SDKDemo
 //
-//  Created by 严军 on 14-7-11.
-//  Copyright (c) 2014年 严军. All rights reserved.
+//  Created by 掌淘科技 on 14-7-11.
+//  Copyright (c) 2014年 掌淘科技. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "SMS_SDKError.h"
 
 /**
  * @brief 返回状态。
@@ -25,12 +26,17 @@ enum SMS_GetVerifyCodeResponseState
     SMS_ResponseStateGetVerifyCodeTooOften=3
 };
 
-
 /**
  * @brief 验证码获取回调block。
  * @param 1:代表获取成功 0:代表获取失败
  */
 typedef void (^GetVerifyCodeBlock)(enum SMS_GetVerifyCodeResponseState state);
+
+/**
+ *  @brief 验证码获取回调block。
+ *  @param error 当error为空时表示成功
+ */
+typedef void (^GetVerificationCodeResultHandler) (SMS_SDKError *error);
 
 /**
  * @brief 验证码验证回调block。
