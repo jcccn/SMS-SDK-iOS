@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'SMS-SDK'
-  s.version  = '1.0.7'
+  s.version  = '1.0.8'
   s.summary  = 'SMS-SDK is a SMS verifying kit.'
   s.homepage = 'https://github.com/jcccn/SMS-SDK-iOS'
   s.author   = { 'Chuncheng Jiang' => 'jccuestc@gmail.com' }
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
                    Copyright © 2012-2015 mob All Rights Reserved 掌淘网络 版权所有
                  LICENSE
                }
-  s.source   = { :git => 'https://github.com/jcccn/SMS-SDK-iOS.git', :tag => '1.0.7' }
+  s.source   = { :git => 'https://github.com/jcccn/SMS-SDK-iOS.git', :tag => '1.0.8' }
   s.platform     = :ios, '5.0'
   s.requires_arc = true
 
